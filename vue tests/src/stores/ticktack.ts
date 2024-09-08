@@ -10,7 +10,13 @@ export const useTicktackStore = defineStore('ticktack', () => {
   const game_pos = ref([0,0]);
 
 
-  function restart() {
+  function restart(_game:number, _board:number) {
+    if(+_game > +_board){
+      alert("the game can't be bigger than the board");
+      return;
+    }
+    game_size.value = +_game; board_size.value = +_board;
+    console.log("starting a new game on " + game_size.value + " in " + board_size.value)
     game_pos.value = [0,0];
     board.value=[];
     for (let i = 0; i < board_size.value; i++) {

@@ -1,7 +1,11 @@
 <script setup lang="ts">
   import { useTicktackStore } from '@/stores/ticktack';
+import { ref } from 'vue';
+
   const store = useTicktackStore();
-  store.restart();
+  const game_size = ref(store.game_size);
+  const board_size = ref(store.board_size);
+  store.restart(game_size.value, board_size.value);
 </script>
 
 <template><main>
@@ -16,6 +20,17 @@
     <p>you can place a piece on every open slot on the board, even outside the game grid. but you only win if you have a row of 3 in the game grid.</p>
   </div>
   <div class="info"> now playing: {{ store.active_player }}</div>
+  <div class="actions">
+    <div class="button" v-on:click=" store.move_game_pos(+1,0)"> move down </div>
+    <div class="button" v-on:click=" store.move_game_pos(-1,0)"> move up </div>
+    <div class="button" v-on:click=" store.move_game_pos(0,-1)"> move left </div>
+    <div class="button" v-on:click=" store.move_game_pos(0,+1)"> move right </div>
+  </div>
+  <div class="actions">
+    <div class="button restart" v-on:click=" store.restart(game_size, board_size) "> restart({{game_size}}, {{board_size}}) </div>
+    <div class="button"><label for="game"></label> game <input id="game" v-model="game_size" /></div>
+    <div class="button"><label for="ass"></label> game <input id="game" v-model="board_size" /></div>
+  </div>
   <div class="board">
     <div class="bg" :style="{'top':(store.get_game_pos(0) + 'em'), 'left':(store.get_game_pos(1) + 'em'), 'width': (store.get_game_size() +'em'), 'height': (store.get_game_size() +'em')}"></div>
     <div v-for="i in store.board_size" class="board_col">
@@ -24,17 +39,7 @@
       </div>
     </div>
   </div>
-  <div class="actions">
-    <div class="button" v-on:click=" store.move_game_pos(+1,0)"> move down </div>
-    <div class="button" v-on:click=" store.move_game_pos(-1,0)"> move up </div>
-    <div class="button" v-on:click=" store.move_game_pos(0,-1)"> move left </div>
-    <div class="button" v-on:click=" store.move_game_pos(0,+1)"> move right </div>
-  </div>
-  <div class="actions">
-    <div class="button restart" v-on:click=" store.restart() "> restart </div>
-    <div class="button"><label for="board"></label> board <input id="board" v-bind:value="store.board_size"/></div>
-    <div class="button"><label for="game"></label> game <input id="game" v-bind:value="store.game_size"/></div>
-  </div>
+  
   
     
 </main></template>
