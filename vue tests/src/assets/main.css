@@ -1,0 +1,8 @@
+@import './base.css';
+
+#app {
+  margin: 0 auto;
+  font-weight: normal;
+  display: flex;
+  background-color: #666;
+}
