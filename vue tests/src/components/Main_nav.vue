@@ -9,12 +9,12 @@ import { faHouse, faInfo, faGamepad } from '@fortawesome/free-solid-svg-icons';
     <NavItem link="/">
       <template #icon> <FontAwesomeIcon :icon="faHouse" /> </template>
       <template #heading>home</template>
-      more text
     </NavItem>
     
     <NavItem link="/ticktack">
       <template #icon><FontAwesomeIcon :icon="faGamepad" /></template>
       <template #heading>ticktack</template>
+      x/o moving grid
     </NavItem>
 
     <NavItem link="/about">

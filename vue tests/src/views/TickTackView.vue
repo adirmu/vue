@@ -32,6 +32,8 @@
   </div>
   <div class="actions">
     <div class="button restart" v-on:click=" store.restart() "> restart </div>
+    <div class="button"><label for="board"></label> board <input id="board" v-bind:value="store.board_size"/></div>
+    <div class="button"><label for="game"></label> game <input id="game" v-bind:value="store.game_size"/></div>
   </div>
   
     

@@ -21,24 +21,33 @@ export const useTicktackStore = defineStore('ticktack', () => {
     }
   }
   function checkWin(){
+    let gx = game_pos.value[0], gy = game_pos.value[1];
+    let d1 = board.value[gx][gy];
+    let d2 = board.value[gx][gy + game_size.value-1];
     for (let i = 0; i < game_size.value; i++) {
-      let h = board.value[i+game_pos.value[0]][0+game_pos.value[1]], v = board.value[0+game_pos.value[0]][i+game_pos.value[1]];
+      let h = board.value[i+gx][0+gy],
+      v = board.value[0+gx][i+gy];
+      d1 = board.value[gx+i][gy+i] == d1 ? d1 : "";
+      d2 = board.value[gx+i][gy + game_size.value-1-i] == d2 ? d2 : "";
+      
       for (let j = 0; j < game_size.value; j++) {
-        v = board.value[j+game_pos.value[0]][i+game_pos.value[1]] == v ? v : "";
-        h = board.value[i+game_pos.value[0]][j+game_pos.value[1]] == h ? h : "";
+        v = board.value[j+gx][i+gy] == v ? v : "";
+        h = board.value[i+gx][j+gy] == h ? h : "";
       }
       if(v!="") alert(v + " won! (v"+i+")");
       if(h!="") alert(h + " won! (h"+i+")");
     }
+    if(d1!="") alert(d1 + " won! (d1)");
+    if(d2!="") alert(d2 + " won! (d2)");
   }
-
+  
   function play(x:number,y:number) {
     if(board.value[x][y] != '') return;
     board.value[x][y] = players[active_player.value];
     active_player.value = 1-active_player.value;
     checkWin();
   }
-
+  
   const get_game_size = ()=>{ return game_size.value * 3.25;}
   const get_game_pos = (axis:number)=>{ return game_pos.value[axis] * 3.25;}
   const move_game_pos = (x:number, y:number)=>{
@@ -46,6 +55,7 @@ export const useTicktackStore = defineStore('ticktack', () => {
       game_pos.value[0] += x;
     if(y>0 && game_pos.value[1]+game_size.value < board_size.value || y<0 && game_pos.value[1]>0)
       game_pos.value[1] += y;
+    active_player.value = 1-active_player.value;
     checkWin();
   }
 
