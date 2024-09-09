@@ -1,17 +1,18 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+
 export const useNumberMatchStore = defineStore('ticktack', () => {
     const board = ref([[0]]);
     const board_size = ref([5,8]);
     const line = ref([[-2,-2]]);
-    const max = ref(1);
+    const max = ref(10);
 
     const Start_line = (i:number, j:number)=>{
         line.value = [[i,j]];
         board.value[i][j]*=-1;
     }
-    const End_line = (i:number, j:number)=>{
+    const End_line = ()=>{
         if (line.value.length < 3) {
             for (let index = 0; index < line.value.length; index++) {
                 const element = line.value[index];
@@ -20,16 +21,19 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
             line.value = [];
             return;
         }
-        let sum = 0;
-        for (let index = 0; index < line.value.length; index++) {
+        let last = -board.value[line.value[0][0]][line.value[0][1]];
+        board.value[line.value[0][0]][line.value[0][1]] = 0;
+        let sum = last;
+        for (let index = 1; index < line.value.length; index++) {
             const element = line.value[index];
-            sum += -board.value[element[0]][element[1]];
+            sum += (last == -board.value[element[0]][element[1]])?1:2;
+            last = -board.value[element[0]][element[1]];
             board.value[element[0]][element[1]] = 0;
         }
         if(sum>max.value){
             max.value = sum;
         }
-        board.value[i][j] = sum;
+        board.value[line.value[line.value.length-1][0]][line.value[line.value.length-1][1]] = sum;
         line.value = [];
         drop();
     }
@@ -49,7 +53,7 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
         for (let i = 0; i < h; i++) {
             board.value.push([]);
             for (let j = 0; j < w; j++) {
-                board.value[i].push(1);
+                board.value[i].push(Math.floor(1 + Math.random() * max.value / 2));
             }
         }
     }
@@ -74,9 +78,13 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
         for (let i = 0; i < board_size.value[0]; i++) {
             for (let j = board_size.value[1]-1; j > 0; j--) {
                 if(board.value[j][i] == 0){
-                    var t = board.value[j][i];
-                    board.value[j][i] = board.value[j-1][i];
-                    board.value[j-1][i] = t;
+                    board.value[j][i] = Math.floor(1 + Math.random() * max.value / 2);
+                    for(let k = j; k>0; k--){
+                        var t = board.value[k][i];
+                        board.value[k][i] = board.value[k-1][i];
+                        board.value[k-1][i] = t;
+                    }
+                    j++;
                 }
             }
             

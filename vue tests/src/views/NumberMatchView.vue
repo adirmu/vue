@@ -6,12 +6,14 @@ store.restart(6,8);
 </script>
 
 
-<template><main>
+<template><main @mouseup="()=>{store.End_line()}">
     <div v-for="(row, i) in store.board" class="hex_row">
         <div v-for="(cell, j) in store.board[i]" class="hex_cell"
+         :style="{'background-color':('rgb(' + ((cell%6)*25) + ','+(((cell/6)%6)*25)+','+(((cell/36)%6)*25)+')')}"
          @mousedown="()=>{store.Start_line(i,j)}"
-         @mouseup="()=>{store.End_line(i,j)}"
+         @touchstart="()=>{store.Start_line(i,j)}"
          @mouseenter="()=>{store.Add_box(i,j)}"
+         @touchmove="()=>{store.Add_box(i,j)}"
          >
             {{ cell }}
             <div class="sub">
@@ -25,9 +27,11 @@ store.restart(6,8);
 main{
     display: flex;
     flex-direction: column;
-    color: #333;
+    color: #ccc;
+    text-shadow: -1px -1px 0 #999, 1px -1px 0 #666, -1px 1px 0 #666, 1px 1px 0 #999;
     text-align: center;
     padding-top: 2.5em;
+    flex:1;
 
     .hex_row{
         display: flex;
