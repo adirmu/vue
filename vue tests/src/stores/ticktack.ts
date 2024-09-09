@@ -9,7 +9,6 @@ export const useTicktackStore = defineStore('ticktack', () => {
   const game_size = ref(3);
   const game_pos = ref([0,0]);
 
-
   function restart(_game:number, _board:number) {
     if(+_game > +_board){
       alert("the game can't be bigger than the board");

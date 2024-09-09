@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('../views/TickTackView.vue')
     },
     {
+      path: '/numbermatch',
+      name: 'numbermatch',
+      component: () => import('../views/NumberMatchView.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue')

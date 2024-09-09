@@ -13,8 +13,12 @@ import { faHouse, faInfo, faGamepad } from '@fortawesome/free-solid-svg-icons';
     
     <NavItem link="/ticktack">
       <template #icon><FontAwesomeIcon :icon="faGamepad" /></template>
-      <template #heading>ticktack</template>
-      x/o moving grid
+      <template #heading>tick tack</template>
+    </NavItem>
+    
+    <NavItem link="/numbermatch">
+      <template #icon><FontAwesomeIcon :icon="faGamepad" /></template>
+      <template #heading>number match</template>
     </NavItem>
 
     <NavItem link="/about">

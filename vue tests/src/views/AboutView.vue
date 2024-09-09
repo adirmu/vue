@@ -1,6 +1,7 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>adir mugrabi</h1>
+    <p>this is just a little website i built to tryout vue.js</p>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useTicktackStore } from '@/stores/ticktack';
-import { ref } from 'vue';
+  import { ref } from 'vue';
 
   const store = useTicktackStore();
   const game_size = ref(store.game_size);
