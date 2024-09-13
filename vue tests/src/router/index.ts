@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import('../views/NumberMatchView.vue')
     },
     {
+      path: '/tiranplanner',
+      name: 'tiran planner',
+      component: () => import('../views/TiranPlanner.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue')

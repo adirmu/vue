@@ -18,4 +18,9 @@ header{
   background-color: rgb(5, 15, 50);
   min-height: 100vh;
 }
+@media only screen and (max-width: 600px) {
+  header{
+    display: none;
+  }
+}
 </style>

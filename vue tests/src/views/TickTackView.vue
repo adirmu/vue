@@ -46,29 +46,31 @@
 
 
 <style>
-.board{
-  font-size: 2em;
-  position: relative;
-}
-.bg{
-  position: absolute;
-  background-color:green;
-  z-index:0;
-}
-.board_col {
-  display: flex;
-}
-.board_row{
-  background-color: #336;
-  border: 5px solid #333;
-  border-radius: .5em;
-  margin: .125em;
-  padding: .5em 0;
-  min-width: 3em;
-  min-height: 3em;
-  text-align: center;
-  cursor: pointer;
-  z-index:1;
+  .board{
+    font-size: 2em;
+    position: relative;
+  }
+  .bg{
+    position: absolute;
+    background-color:green;
+    z-index:0;
+  }
+  .board_col {
+    display: flex;
+  }
+  .board_row{
+    background-color: #ccc;
+    color: #333;
+    font-weight: bold;
+    border: 5px solid #333;
+    border-radius: .5em;
+    margin: .125em;
+    padding: .5em 0;
+    min-width: 3em;
+    min-height: 3em;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
 
     &:hover{
       background-color: #669;

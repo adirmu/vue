@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NavItem from './Nav_item.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faHouse, faInfo, faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faInfo, faGamepad, faCalendar } from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <template>
@@ -20,6 +20,11 @@ import { faHouse, faInfo, faGamepad } from '@fortawesome/free-solid-svg-icons';
       <template #icon><FontAwesomeIcon :icon="faGamepad" /></template>
       <template #heading>number match</template>
     </NavItem>
+    
+    <!--NavItem link="/tiranplanner">
+      <template #icon><FontAwesomeIcon :icon="faCalendar" /></template>
+      <template #heading>Tiran planner</template>
+    </NavItem-->
 
     <NavItem link="/about">
       <template #icon><FontAwesomeIcon :icon="faInfo" /></template>
