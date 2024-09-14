@@ -2,11 +2,11 @@
 import { useNumberMatchStore } from '@/stores/numbermatch';
 
 const store = useNumberMatchStore();
-store.restart(6,8);
+store.Restart(6,8);
 </script>
 
 
-<template><main @mouseup="()=>{store.End_line()}">
+<template><main @mouseup="()=>{store.End_line()}" @touchend="()=>{store.End_line()}">
     <div v-for="(row, i) in store.board" class="hex_row">
         <div v-for="(cell, j) in store.board[i]" class="hex_cell"
          :style="{'background-color':('rgb(' + (30+(cell%6)*30) + ','+(30+((cell/6)%6)*30)+','+(30+((cell/36)%6)*30)+')')}"
@@ -56,7 +56,7 @@ main{
         }
     }
     .sub{
-        /*display: none;*/
+        display: none;
         font-size: .75em;
         color: #222;
     }

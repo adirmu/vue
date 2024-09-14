@@ -52,7 +52,6 @@ export const useTicktackStore = defineStore('ticktack', () => {
     active_player.value = 1-active_player.value;
     checkWin();
   }
-  
   const get_game_size = ()=>{ return game_size.value * 3.25;}
   const get_game_pos = (axis:number)=>{ return game_pos.value[axis] * 3.25;}
   const move_game_pos = (x:number, y:number)=>{
