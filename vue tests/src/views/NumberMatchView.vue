@@ -17,9 +17,7 @@ store.Restart(6,8);
          @drag="(store.Add_box(i, j))"
          >
             <div class="main">{{ cell }}</div>
-            <div class="sub">
-                ({{ i }}, {{ j }})
-            </div>
+            <div class="sub"> ({{ i }}, {{ j }}) </div>
         </div>
     </div>
 </main></template>
