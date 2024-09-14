@@ -7,8 +7,14 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
     const board_size = ref([5, 8]);
     const line = ref([[-2, -2]]);
     const max = ref(10);
+    const logs = ref(["logs:"]);
 
     const Start_line = (i: number, j: number) => {
+        logs.value.push("Start_line :{" + i + ","+ j + "}")
+        for (let index = 0; index < line.value.length; index++) {
+            const element = line.value[index];
+            board.value[element[0]][element[1]] *= -1;
+        }
         line.value = [[i, j]];
         board.value[i][j] *= -1;
     }
@@ -22,6 +28,7 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
             return;
         }
         const last_node_position = line.value[line.value.length - 1]
+        logs.value.push("End_line :{" + last_node_position[0] + ","+ last_node_position[1] + "}")
         const summed_value = Get_sum(board.value, line.value);
         if (summed_value > max.value) {
             max.value = summed_value;
@@ -33,6 +40,10 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
     const Add_box = (i: number, j: number) => {
         if (line.value.length == 0) { //might want to add "out of bounds" check here
             return;
+        }
+        logs.value.push("Add_box :{" + i + ","+ j + "}")
+        if(logs.value.length>10){
+            logs.value.shift();
         }
         let pen_ultimate = line.value.length > 1 ? line.value[line.value.length-2] : null;
         if( pen_ultimate != null && pen_ultimate[0]==i && pen_ultimate[1] == j){
@@ -95,5 +106,5 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
         }
         return sum;
     }
-    return { board, Restart, Start_line, Add_box, End_line };
+    return { board,logs, Restart, Start_line, Add_box, End_line };
 });

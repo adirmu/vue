@@ -3,26 +3,34 @@ import { useNumberMatchStore } from '@/stores/numbermatch';
 
 const store = useNumberMatchStore();
 store.Restart(6,8);
+
+const start_drag = (i:number, j:number, event: any)=>{ event.target.releasePointerCapture(event.pointerId);store.Start_line(i,j)};
+const move_drag = (i:number,j:number, event: any)=>{event.target.releasePointerCapture(event.pointerId); store.Add_box(i,j)};
+const end_drag = (event: any)=>{  store.End_line() };
 </script>
 
 
-<template><main @mouseup="()=>{store.End_line()}" @touchend="()=>{store.End_line()}">
+<template><main @mouseup="end_drag" @touchend="(event)=>end_drag(event)">
     <div v-for="(row, i) in store.board" class="hex_row">
         <div v-for="(cell, j) in store.board[i]" class="hex_cell"
          :style="{'background-color':('rgb(' + (30+(cell%6)*30) + ','+(30+((cell/6)%6)*30)+','+(30+((cell/36)%6)*30)+')')}"
-         @mousedown="()=>{store.Start_line(i,j)}"
-         @touchstart="()=>{store.Start_line(i,j)}"
-         @mouseenter="()=>{store.Add_box(i,j)}"
-         @touchmove="()=>{store.Add_box(i,j)}"
-         @drag="(store.Add_box(i, j))"
+         @mousedown="(event)=>start_drag(i,j,event)"
+         @mouseenter="(event)=>move_drag(i,j,event)"
+
+         @pointerdown="(event)=>start_drag(i,j,event)"
+         @pointerenter="(event)=>move_drag(i,j,event)"
          >
             <div class="main">{{ cell }}</div>
             <div class="sub"> ({{ i }}, {{ j }}) </div>
         </div>
     </div>
+    <div>
+        <p v-for="log in store.logs.values()">{{ log }}</p>
+    </div>
 </main></template>
 
 <style>
+.hex_row{ touch-action: none; } 
 main{
     display: flex;
     flex-direction: column;
