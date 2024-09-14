@@ -14,6 +14,7 @@ store.Restart(6,8);
          @touchstart="()=>{store.Start_line(i,j)}"
          @mouseenter="()=>{store.Add_box(i,j)}"
          @touchmove="()=>{store.Add_box(i,j)}"
+         @drag="(store.Add_box(i, j))"
          >
             <div class="main">{{ cell }}</div>
             <div class="sub">
