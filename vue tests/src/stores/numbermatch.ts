@@ -119,10 +119,12 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
             res = "good";
         }else if( last_value != board.value[i][j] ){
             res = "bad";
+        }else{
+            res = "same";
         }
 
-        for (let index = 0; index < adjacent[i%2].length; index++) {
-            const side = adjacent[i%2][index];
+        for (let index = 0; index < adjacent[j%2].length; index++) {
+            const side = adjacent[j%2][index];
             if (side[0] + last_position[0] == i && side[1] + last_position[1] == j) {
                 return res;
             }

@@ -60,6 +60,7 @@ main{
         
         &.good { border: 2px solid #9f9; }
         &.bad  { border: 2px solid #f99; }
+        &.same  { border: 2px solid #fff; }
         
         &:nth-child(2n){
             margin-top: -1.5em;
