@@ -3,6 +3,14 @@ import { defineStore } from 'pinia'
 
 
 export const useNumberMatchStore = defineStore('ticktack', () => {
+    const adjacent = [
+        [[-1, -1], [-1, +0], [-1, +1],
+        [+0, -1], [+1, +0], [+0, +1]],
+        [[+0, -1], [-1, +0], [+0, +1],
+        [+1, -1], [+1, +0], [+1, +1]],
+    ];
+
+
     const board = ref([[0]]);
     const board_size = ref([5, 8]);
     const line = ref([[-2, -2]]);
@@ -71,12 +79,7 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
         let last = -board.value[last_pos[0]][last_pos[1]]; // the negative is due to the way i check if an element is a member of the line
         let by_val = board.value[i][j] == last ||
             line.value.length > 1 && board.value[i][j] == last + 1;
-        let sides = [
-            [[-1, -1], [-1, +0], [-1, +1],
-            [+0, -1], [+1, +0], [+0, +1]],
-            [[+0, -1], [-1, +0], [+0, +1],
-            [+1, -1], [+1, +0], [+1, +1]],
-        ][j % 2];
+        let sides = adjacent[j % 2];
         let by_pos = sides.filter(s => i == s[0] + last_pos[0] && j == s[1] + last_pos[1]).length > 0;
 
         return by_val && by_pos;
@@ -106,5 +109,25 @@ export const useNumberMatchStore = defineStore('ticktack', () => {
         }
         return sum;
     }
-    return { board,logs, Restart, Start_line, Add_box, End_line };
+
+    function Get_color_class(i:number, j:number){
+        if(line.value.length<2) return "";
+        let res = ""
+        let last_position = line.value[line.value.length-1];
+        let last_value = -board.value[last_position[0]][last_position[1]];
+        if( last_value +1 == board.value[i][j] ){
+            res = "good";
+        }else if( last_value != board.value[i][j] ){
+            res = "bad";
+        }
+
+        for (let index = 0; index < adjacent[i%2].length; index++) {
+            const side = adjacent[i%2][index];
+            if (side[0] + last_position[0] == i && side[1] + last_position[1] == j) {
+                return res;
+            }
+        }
+        return "ass";
+    }
+    return { board,logs, Restart, Start_line, Add_box, End_line, Get_color_class };
 });

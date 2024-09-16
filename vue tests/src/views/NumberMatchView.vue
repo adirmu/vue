@@ -12,7 +12,7 @@ const end_drag = (event: any)=>{  store.End_line() };
 
 <template><main @mouseup="end_drag" @touchend="(event)=>end_drag(event)">
     <div v-for="(row, i) in store.board" class="hex_row">
-        <div v-for="(cell, j) in store.board[i]" class="hex_cell"
+        <div v-for="(cell, j) in store.board[i]" :class="'hex_cell ' + store.Get_color_class(i,j)"
          :style="{'background-color':('rgb(' + (30+(cell%6)*30) + ','+(30+((cell/6)%6)*30)+','+(30+((cell/36)%6)*30)+')')}"
          @mousedown="(event)=>start_drag(i,j,event)"
          @mouseenter="(event)=>move_drag(i,j,event)"
@@ -57,7 +57,10 @@ main{
         user-select: none;
         font-weight: bold;
         border: 1px solid #999;
-
+        
+        &.good { border: 2px solid #9f9; }
+        &.bad  { border: 2px solid #f99; }
+        
         &:nth-child(2n){
             margin-top: -1.5em;
         }
